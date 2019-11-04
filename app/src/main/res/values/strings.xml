@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Coba Database</string>
+    <string-array name="perkwainan">
+        <item>Kawin</item>
+        <item>Belum Kawin</item>
+        <item>Cerai</item>
+    </string-array>
+</resources>
