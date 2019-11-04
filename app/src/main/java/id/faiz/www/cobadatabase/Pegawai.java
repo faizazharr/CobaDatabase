@@ -5,6 +5,25 @@ public class Pegawai {
     private String nama;
     private int nip;
 
+    public String getTanggallahir() {
+        return tanggallahir;
+    }
+
+    public void setTanggallahir(String tanggallahir) {
+        this.tanggallahir = tanggallahir;
+    }
+
+    public String getPerkawinan() {
+        return perkawinan;
+    }
+
+    public void setPerkawinan(String perkawinan) {
+        this.perkawinan = perkawinan;
+    }
+
+    private String tanggallahir;
+    private String perkawinan;
+
     public int getId() {
         return id;
     }

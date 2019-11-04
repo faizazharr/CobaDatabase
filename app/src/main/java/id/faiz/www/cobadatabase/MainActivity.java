@@ -8,14 +8,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     EditText nipEdit,nameEdit;
     Button saveButton,showButton;
+    DatePicker date_tanggallahir;
+    String text_tanggallahir,spinner_text;
+    int day,month,year;
     Spinner spinnerkawin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
 
         nipEdit = findViewById(R.id.nipEdit);
         nameEdit= findViewById(R.id.nameEdit);
+        date_tanggallahir = (DatePicker) findViewById(R.id.tanggallahir);
+        day = date_tanggallahir.getDayOfMonth();
+        month= date_tanggallahir.getMonth();
+        year = date_tanggallahir.getYear();
+        text_tanggallahir = String.valueOf(day) +"-"+ String.valueOf(month) +"-"+ String.valueOf(year);
+        spinner_text = spinnerkawin.getSelectedItem().toString();
         saveButton = findViewById(R.id.saveButton);
         showButton = findViewById(R.id.showButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
         Log.i("DB","--- DATA PEGAWAI DI DATABASE ---");
         List<Pegawai> pegawaiList = db.getAllPegawai();
         for (Pegawai p : pegawaiList){
-            Log.i("DB", String.format("Nama pegawai: %s, NIP: %d",p.getNama(), p.getNip()));
+            Log.i("DB", String.format("Nama pegawai: %s, NIP: %s, Tanggal Lahir: %s, Status Kawin: %d",
+                    p.getNama(), p.getNip(),p.getTanggallahir(),p.getPerkawinan()));
         }
 
     }
@@ -67,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
     Pegawai p = new Pegawai();
         p.setNip(Integer.valueOf(nipEdit.getText().toString()));
         p.setNama(nameEdit.getText().toString());
+        p.setTanggallahir(text_tanggallahir);
+        p.setPerkawinan(spinner_text);
         DatabasePegawai db = new DatabasePegawai(this);
         db.createPegawai(p);
     }
