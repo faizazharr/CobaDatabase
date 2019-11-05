@@ -50,11 +50,11 @@
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="84dp"
         android:text="SIMPAN"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_perkawinan" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
 
     <Button
         android:id="@+id/showButton"
@@ -102,6 +102,46 @@
         android:layout_marginTop="28dp"
         app:layout_constraintStart_toEndOf="@+id/perkawinan_text"
         app:layout_constraintTop_toBottomOf="@+id/tanggallahir" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/houseNumber"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_perkawinan"
+        app:srcCompat="@drawable/baseline_local_phone_black_24dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:srcCompat="@drawable/baseline_smartphone_black_24dp" />
+
+    <EditText
+        android:id="@+id/houseNumber"
+        android:layout_width="181dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_perkawinan" />
+
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="180dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="@+id/houseNumber"
+        app:layout_constraintTop_toBottomOf="@+id/houseNumber" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
