@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabasePegawai extends SQLiteOpenHelper {
-
+    Log log;
     private static final String DB_NAME = "db_pegawai";
     private static final int DB_VERSION = 2;
     private String CREATE_TABLE_PEGAWAI = "CREATE TABLE pegawai("+
@@ -47,12 +48,14 @@ public class DatabasePegawai extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        log.d("DB","Membuat database");
         sqLiteDatabase.execSQL(CREATE_TABLE_PEGAWAI);
         sqLiteDatabase.execSQL(CREATE_TABLE_TELEPON);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        log.d("DB","Mengupgrade database " + i +" ke "+ i1);
         if (i1 == 2 && i == 1){
             sqLiteDatabase.execSQL(CREATE_TABLE_TELEPON);
         }
@@ -67,6 +70,10 @@ public class DatabasePegawai extends SQLiteOpenHelper {
         cv.put("perkawinan", pegawai.getPerkawinan());
         db.insert("pegawai", null,cv);
         db.close();
+    }
+
+    public void createNomorTelpon(Telepon telepon){
+        SQLiteDatabase db = getWritableDatabase();
     }
 
     public void deletePegawai(int nip){

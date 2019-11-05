@@ -14,6 +14,7 @@ import android.widget.Spinner;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -87,6 +88,20 @@ public class MainActivity extends AppCompatActivity {
         p.setTanggallahir(text_tanggallahir);
         p.setPerkawinan(spinnerkawin.getSelectedItem().toString());
 
+        String homePhone = housephone.getText().toString();
+        String cellPhone= cellulerphone.getText().toString();
+
+        List<Telepon> listTelepon = new ArrayList<>();
+        if (homePhone != null  && homePhone.trim().length() > 0){
+            listTelepon.add(new Telepon("HOME", homePhone));
+        }
+        if (cellPhone != null  && cellPhone.trim().length() > 0){
+            listTelepon.add(new Telepon("CELL", cellPhone));
+        }
+
+        if (listTelepon.size() > 0){
+            p.setListTelepon(listTelepon);
+        }
         DatabasePegawai db = new DatabasePegawai(this);
         db.createPegawai(p);
     }
