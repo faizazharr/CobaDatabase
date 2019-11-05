@@ -16,9 +16,10 @@ public class DatabasePegawai extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "db_pegawai";
     private static final int DB_VERSION = 1;
-
+    public String databasePath ="";
     public DatabasePegawai(Context context) {
         super(context,DB_NAME, null,DB_VERSION);
+        databasePath = context.getDatabasePath("db_pegawai").getPath();
     }
 
     public DatabasePegawai(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -34,7 +35,9 @@ public class DatabasePegawai extends SQLiteOpenHelper {
         String createTable = "CREATE TABLE pegawai("+
                 "_id INTEGER PRIMARY KEY, "+
                 "nip INTEGER UNIQUE, "+
-                "nama TEXT);";
+                "nama TEXT,"+
+                "tgl_lahir TEXT," +
+                "perkawinan TEXT);";
         sqLiteDatabase.execSQL(createTable);
     }
 
@@ -51,6 +54,8 @@ public class DatabasePegawai extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("nip", pegawai.getNip());
         cv.put("nama", pegawai.getNama());
+        cv.put("tgl_lahir", pegawai.getTanggallahir());
+        cv.put("perkawinan", pegawai.getPerkawinan());
         db.insert("pegawai", null,cv);
         db.close();
     }
@@ -81,6 +86,8 @@ public class DatabasePegawai extends SQLiteOpenHelper {
                 pegawai.setId(cursor.getInt(0));
                 pegawai.setNip(cursor.getInt(1));
                 pegawai.setNama(cursor.getString(2));
+                pegawai.setTanggallahir(cursor.getString(3));
+                pegawai.setPerkawinan(cursor.getString(4));
                 employees.add(pegawai);
             }while (cursor.moveToNext());
         }
