@@ -1,11 +1,15 @@
 package id.faiz.www.cobadatabase;
 
+import java.util.List;
+
 public class Pegawai {
     private int id;
     private String nama;
     private int nip;
     private String tanggallahir;
     private String perkawinan;
+    private List<Telepon> ListTelepon;
+
     public int getId() {
         return id;
     }
@@ -46,4 +50,11 @@ public class Pegawai {
         this.perkawinan = perkawinan;
     }
 
+    public List<Telepon> getListTelepon() {
+        return ListTelepon;
+    }
+
+    public void setListTelepon(List<Telepon> listTelepon) {
+        ListTelepon = listTelepon;
+    }
 }

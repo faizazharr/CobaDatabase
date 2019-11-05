@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    EditText nipEdit,nameEdit;
+    EditText nipEdit,nameEdit,housephone,cellulerphone;
     Button saveButton,showButton;
     DatePicker date_tanggallahir;
     String text_tanggallahir;
@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         month= date_tanggallahir.getMonth();
         year = date_tanggallahir.getYear();
         text_tanggallahir = String.valueOf(day) +"-"+ String.valueOf(month) +"-"+ String.valueOf(year);
+
+        housephone = findViewById(R.id.houseNumber);
+        cellulerphone = findViewById(R.id.phoneNumber);
+
         saveButton = findViewById(R.id.saveButton);
         showButton = findViewById(R.id.showButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -57,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 printDataToLog();
             }
         });
-
-
     }
 
     private void printDataToLog() {

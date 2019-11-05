@@ -15,8 +15,23 @@ import java.util.List;
 public class DatabasePegawai extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "db_pegawai";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
+    private String CREATE_TABLE_PEGAWAI = "CREATE TABLE pegawai("+
+            "_id INTEGER PRIMARY KEY, "+
+            "nip INTEGER UNIQUE, "+
+            "nama TEXT,"+
+            "tgl_lahir TEXT," +
+            "perkawinan TEXT);";
+    private String CREATE_TABLE_TELEPON= "CREATE TABLE telepon(" +
+            "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "id_pegawai INTEGER NOT NULL," +
+            "kategori TEXT NOT NULL," +
+            "nomor TEXT NOT NULL," +
+            "FOREIGN KEY(id_pegawai) REFERENCES pegawai(_id)); ";
+
+    private String SELECT_ALL_PEGAWAI = "SELECT * FROM pegawai LEFT JOIN telepon ON pegawai._id = TELEPON._id";
     public String databasePath ="";
+
     public DatabasePegawai(Context context) {
         super(context,DB_NAME, null,DB_VERSION);
         databasePath = context.getDatabasePath("db_pegawai").getPath();
@@ -32,20 +47,14 @@ public class DatabasePegawai extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTable = "CREATE TABLE pegawai("+
-                "_id INTEGER PRIMARY KEY, "+
-                "nip INTEGER UNIQUE, "+
-                "nama TEXT,"+
-                "tgl_lahir TEXT," +
-                "perkawinan TEXT);";
-        sqLiteDatabase.execSQL(createTable);
+        sqLiteDatabase.execSQL(CREATE_TABLE_PEGAWAI);
+        sqLiteDatabase.execSQL(CREATE_TABLE_TELEPON);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         if (i1 == 2 && i == 1){
-            String sql = "ALTER TABLE pegawai ADD COLUMN jenis_kelamin INTEGER";
-            sqLiteDatabase.execSQL(sql);
+            sqLiteDatabase.execSQL(CREATE_TABLE_TELEPON);
         }
     }
 
@@ -78,7 +87,7 @@ public class DatabasePegawai extends SQLiteOpenHelper {
     public List<Pegawai> getAllPegawai(){
         SQLiteDatabase db = getWritableDatabase();
         List<Pegawai> employees = new ArrayList<>();
-        Cursor cursor = db.rawQuery("SELECT * FROM pegawai", null);
+        Cursor cursor = db.rawQuery(SELECT_ALL_PEGAWAI, null);
 
         if (cursor.moveToFirst()){
             do {
