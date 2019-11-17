@@ -102,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         if (listTelepon.size() > 0){
             p.setListTelepon(listTelepon);
         }
+
+//        Lanjutkan Ubah method DatabasePegawai createpegawai() dan DatabasePegawaiw.getAllPegawai()
         DatabasePegawai db = new DatabasePegawai(this);
         db.createPegawai(p);
     }

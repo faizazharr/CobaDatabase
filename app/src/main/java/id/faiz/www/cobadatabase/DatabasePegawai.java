@@ -69,7 +69,25 @@ public class DatabasePegawai extends SQLiteOpenHelper {
         cv.put("tgl_lahir", pegawai.getTanggallahir());
         cv.put("perkawinan", pegawai.getPerkawinan());
         db.insert("pegawai", null,cv);
+        db.beginTransaction();
+        try {
+            long newId = db.insert("pegawai", null, cv);
+            if (pegawai.getListTelepon() != null && pegawai.getListTelepon().size() > 0){
+                for (Telepon t : pegawai.getListTelepon()){
+                    ContentValues cvTelepon = new ContentValues();
+                    cvTelepon.put("id_pegawai", newId);
+                    cvTelepon.put("kategori", t.getKategori());
+                    cvTelepon.put("nomor", t.getNomor());
+                    db.insert("telepon", null,cvTelepon);
+                }
+            }
+        }catch (Exception e){
+            log.e("DB", "Gagal menyipan data pegawai baru");
+        }finally {
+            db.endTransaction();
+        }
         db.close();
+
     }
 
     public void createNomorTelpon(Telepon telepon){
